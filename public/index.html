@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- mapbox -->
+        <script src='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js'></script>
+        <link href='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css' rel='stylesheet' />
+
+        <title>Maps</title>
+
+        <style>
+            /* Basic styling */
+            main {
+                display: flex;
+                justify-content: center;
+            }
+            #map {
+                height: 70vh;
+                width: 80vw;
+                border: none;
+            }
+            .red-marker {
+                background: #FF0000;
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                cursor: pointer;
+            }
+            .yellow-marker {
+                background: #FFFF00;
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                cursor: pointer;
+            }
+            .green-marker {
+                background: #00FF00;
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                cursor: pointer;
+            }
+        </style>
+    </head>
+    <body>
+        <main>
+            <div id='map'></div>
+        </main>
+
+    <script>
+        //DATA
+        //dataJSON => dummy data
+        let data = [
+            {
+                coords: [36.78377, -3.55116], index: 2.5 
+            },
+            {
+                coords: [36.682995, -3.486925], index: 2.5 
+            },
+            {
+                coords: [36.682995, -3.476925], index: 1
+            },
+            {
+                coords: [36.882995, -3.486625], index: 2.5
+            },
+            {
+                coords: [36.782995, -3.456925], index: 4.8
+            },
+            {
+                coords: [36.782995, -3.457925], index: 4.8
+            },
+            {
+                coords: [36.784995, -3.474925], index: 4.8
+            },
+            {
+                coords: [36.785995, -3.465925], index: 2.5
+            },
+            {
+                coords: [36.786995, -3.496925], index: 2
+            },
+            {
+                coords: [36.728299, -3.487925], index: 1
+            },
+            {
+                coords: [36.782995, -3.486925], index: 3.2
+            },
+            {
+                coords: [36.8499962, -3.9764627608], index: 4
+            },
+            {
+                coords: [36.9499962, -3.9774627608], index: 4.6
+            },
+            {
+                coords: [36.9499962, -3.9784627608], index: 4.6
+            }
+        ];
+        // ----------------------------------------------------------------------------------------
+        // fetching JSON data from an external source
+        // fetch('./data.json')
+        //     .then(data => data.json())
+        //     .then(json => console.log(json));
+    
+        // ----------------------------------------------------------------------------------------
+        mapboxgl.accessToken = 'pk.eyJ1IjoibHVjaWFuYW0iLCJhIjoiY2ttcng3czl5MGM0cTJ5czA5Yjd1d2NudyJ9.X_DK1RLDo38gI-xLbSOw4g';
+        const map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/streets-v11',
+            center: [36.682995, -3.386925],
+            zoom: 10
+        });
+        // ----------------------------------------------------------------------------------------
+        //navigation control
+        const nav = new mapboxgl.NavigationControl()
+        map.addControl(nav, 'bottom-right')
+        //marker
+        // const marker = new mapboxgl.Marker()
+        //     .setLngLat([36.682995, -3.386925])
+        //     .addTo(map);
+
+        // ----------------------------------------------------------------------------------------
+        // adding multiple markers to the map
+        /*
+        data.forEach((element)=>{
+            // create a HTML element for each feature
+            let el = document.createElement('div');
+
+            // color-code the different indexes
+            if(element.index >= 1 && element.index < 2.5){
+                el.className = 'green-marker';
+            }
+            else if(element.index >= 2.5 && element.index < 4.5){
+                el.className = 'yellow-marker';
+            }
+            else if (element.index >= 4.5){
+                el.className = 'red-marker';
+            }
+            
+            // make a marker for each feature and add to the map
+            new mapboxgl.Marker(el)
+                .setLngLat(element.coords)
+                .addTo(map);
+        });
+        */
+        
+    </script>
+    <script src = ./location.js></script>
+    </body>
+</html>
