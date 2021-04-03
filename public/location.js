@@ -23,7 +23,11 @@ function showLocation(position){
             .addTo(map);
         
         marker.addTo(map);
-        
+
+        //android marker
+        map.addMarker(new MarkerOptions()
+            .position(new LatLng(long, lat))
+           
         // requestAnimationFrame(animateMarker());
     }
     
