@@ -18,7 +18,10 @@ function showLocation(position){
     requestAnimationFrame(animateMarker)
 
     function animateMarker() {
-        const marker = new mapboxgl.Marker()
+        let el = document.createElement('div');
+        el.className = 'red-marker';  
+
+        const marker = new mapboxgl.Marker(el)
             .setLngLat([long, lat])
             .addTo(map);
         
