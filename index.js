@@ -3,9 +3,10 @@ const Datastore = require('nedb');
 require('dotenv').config();
 
 const app = express();
-const port = process.env.PORT || 3000;
+// const port = process.env.PORT || 3000;
+app.set( 'port', ( process.env.PORT || 3000 ));
 
-app.listen(port, () => console.log(`Listening at ${port}`));
+app.listen(app.get( 'port' ), () => console.log(`Listening at ${port}`));
 
 app.use(express.static('public'));
 
