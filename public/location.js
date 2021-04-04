@@ -22,8 +22,6 @@ function animateMarker() {
     const marker = new mapboxgl.Marker()
         .setLngLat([long, lat])
         .addTo(map);
-    
-    marker.addTo(map);
 }
 
 function showLocation(position){
@@ -36,7 +34,7 @@ function showLocation(position){
     requestAnimationFrame(animateMarker)
     
     let div = document.getElementById('location-div');
-    div.removeChild(p)
+    div.removeChild();
     let p = document.createElement('p');
     p.innerHTML = (`
         Latitude: ${lat} Longitude: ${long}
