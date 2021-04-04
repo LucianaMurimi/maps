@@ -24,7 +24,7 @@ function getLocation(){
                 timestamp = position.timestamp;
               
                 console.log("Lat: ", lat, "Long: ", long, "Timestamp: ", timestamp);
-                
+
                 let div = document.getElementById('location-div');
                 if(div.hasChildNodes()){
                     div.innerHTML = '';
