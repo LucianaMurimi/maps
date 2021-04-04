@@ -26,15 +26,12 @@ function showLocation(position){
   
     console.log("Lat: ", lat, "Long: ", long, "Timestamp: ", timestamp);
     
-    requestAnimationFrame(animateMarker)
-    function animateMarker() {
-        const marker = new mapboxgl.Marker()
-            .setLngLat([long, lat])
-            .addTo(map);
-    }
+    new mapboxgl.Marker()
+        .setLngLat([long, lat])
+        .addTo(map);
 
     let div = document.getElementById('location-div');
-    div.removeChild();
+    // div.removeChild();
     let p = document.createElement('p');
     p.innerHTML = (`
         Latitude: ${lat} Longitude: ${long}
