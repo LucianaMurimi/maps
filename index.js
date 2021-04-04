@@ -11,7 +11,8 @@ app.use(express.static('public'));
 
 app.use(express.json({limit: '1mb'}));
 
-const database = new Datastore({ filename: './database.db', autoload: true });
+const database = new Datastore({ filename: 'database.db', autoload: true });
+database.persistence.setAutocompactionInterval(5);
 database.loadDatabase();
 
 app.post('/api', (req, res) => {
