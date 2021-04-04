@@ -1,5 +1,5 @@
 // 1. LOCATION
-const map = {};
+const map;
  
 function getCurrentLocation(){
     if (navigator.geolocation) {
@@ -66,7 +66,5 @@ function showLocation(position){
 
 }
 
-
-getCurrentLocation();
 getLocation();
 // ============================================================================
