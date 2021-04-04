@@ -32,7 +32,7 @@ function getLocation(){
                 }
                 let p = document.createElement('p');
                 p.innerHTML = (`
-                    Latitude: ${lat} Longitude: ${long}
+                    Latitude: ${lat}    Longitude: ${long}
                 `);
                 div.append(p);
                 
