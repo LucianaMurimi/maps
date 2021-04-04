@@ -27,7 +27,9 @@ function getLocation(){
                     .addTo(map);
             
                 let div = document.getElementById('location-div');
-                // div.removeChild();
+                if(div.hasChildNodes()){
+                    div.innerHTML = '';
+                }
                 let p = document.createElement('p');
                 p.innerHTML = (`
                     Latitude: ${lat} Longitude: ${long}
