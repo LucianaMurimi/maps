@@ -13,47 +13,49 @@ function getLocation(){
             map.addControl(nav, 'bottom-right')
 
             navigator.geolocation.watchPosition(showLocation);
+
+            function showLocation(position){
+                lat = position.coords.latitude;
+                long = position.coords.longitude;
+                timestamp = position.timestamp;
+              
+                console.log("Lat: ", lat, "Long: ", long, "Timestamp: ", timestamp);
+                
+            
+                var marker = new mapboxgl.Marker()
+                    .setLngLat([long, lat])
+                    .addTo(map);
+            
+                let div = document.getElementById('location-div');
+                // div.removeChild();
+                let p = document.createElement('p');
+                p.innerHTML = (`
+                    Latitude: ${lat} Longitude: ${long}
+                `);
+                div.append(p);
+                
+                // SEND DATA TO API
+                const data = { lat, long, timestamp };
+            
+                const options = {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                };
+                fetch('/api', options)
+                .then(res => res.json())
+                .then(data => console.log(data));
+            
+            }
+            
         });
     } else { 
         let err = "Geolocation is not supported by this browser.";
     }
 }
 
-function showLocation(position){
-    lat = position.coords.latitude;
-    long = position.coords.longitude;
-    timestamp = position.timestamp;
-  
-    console.log("Lat: ", lat, "Long: ", long, "Timestamp: ", timestamp);
-    
-
-    var marker = new mapboxgl.Marker()
-        .setLngLat([long, lat])
-        .addTo(map);
-
-    let div = document.getElementById('location-div');
-    // div.removeChild();
-    let p = document.createElement('p');
-    p.innerHTML = (`
-        Latitude: ${lat} Longitude: ${long}
-    `);
-    div.append(p);
-    
-    // SEND DATA TO API
-    const data = { lat, long, timestamp };
-
-    const options = {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    };
-    fetch('/api', options)
-    .then(res => res.json())
-    .then(data => console.log(data));
-
-}
 
 getLocation();
 // ============================================================================
