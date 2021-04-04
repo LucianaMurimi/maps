@@ -17,15 +17,17 @@ function showLocation(position){
     console.log("Lat: ", lat, "Long: ", long, "Timestamp: ", timestamp);
     requestAnimationFrame(animateMarker)
 
+    const marker;
     function animateMarker() {
-        const marker = new mapboxgl.Marker()
+        marker = new mapboxgl.Marker()
             .setLngLat([long, lat])
             .addTo(map);
         
-        marker.addTo(map);
+        // marker.addTo(map);
            
         // requestAnimationFrame(animateMarker());
     }
+    marker.addTo(map);
     
     // // start the animation.
     // requestAnimationFrame(animateMarker(long, lat));
