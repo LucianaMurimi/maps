@@ -18,11 +18,6 @@ function getLocation(){
         let err = "Geolocation is not supported by this browser.";
     }
 }
-function animateMarker() {
-    const marker = new mapboxgl.Marker()
-        .setLngLat([long, lat])
-        .addTo(map);
-}
 
 function showLocation(position){
     lat = position.coords.latitude;
@@ -32,7 +27,12 @@ function showLocation(position){
     console.log("Lat: ", lat, "Long: ", long, "Timestamp: ", timestamp);
     
     requestAnimationFrame(animateMarker)
-    
+    function animateMarker() {
+        const marker = new mapboxgl.Marker()
+            .setLngLat([long, lat])
+            .addTo(map);
+    }
+
     let div = document.getElementById('location-div');
     div.removeChild();
     let p = document.createElement('p');
