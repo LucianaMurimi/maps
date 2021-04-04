@@ -1,8 +1,10 @@
 // 1. LOCATION
+const map = {};
+ 
 function getCurrentLocation(){
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(position => {
-            const map = new mapboxgl.Map({
+            map = new mapboxgl.Map({
                 container: 'map',
                 style: 'mapbox://styles/mapbox/streets-v11',
                 center: [position.coords.longitude, position.coords.latitude],
@@ -41,6 +43,7 @@ function showLocation(position){
     requestAnimationFrame(animateMarker)
     
     let div = document.getElementById('location-div');
+    div.removeChild(p)
     let p = document.createElement('p');
     p.innerHTML = (`
         Latitude: ${lat} Longitude: ${long}
