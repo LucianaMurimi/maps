@@ -15,6 +15,16 @@ function showLocation(position){
 
     
     console.log("Lat: ", lat, "Long: ", long, "Timestamp: ", timestamp);
+    const map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/streets-v11',
+            center: [long, lat],
+            zoom: 10
+        });
+        
+    const nav = new mapboxgl.NavigationControl()
+    map.addControl(nav, 'bottom-right')
+    
     requestAnimationFrame(animateMarker)
 
     

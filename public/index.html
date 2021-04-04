@@ -104,12 +104,12 @@
     
         // ----------------------------------------------------------------------------------------
         mapboxgl.accessToken = 'pk.eyJ1IjoibHVjaWFuYW0iLCJhIjoiY2ttcng3czl5MGM0cTJ5czA5Yjd1d2NudyJ9.X_DK1RLDo38gI-xLbSOw4g';
-        const map = new mapboxgl.Map({
-            container: 'map',
-            style: 'mapbox://styles/mapbox/streets-v11',
-            center: [36.682995, -3.386925],
-            zoom: 10
-        });
+        // const map = new mapboxgl.Map({
+        //     container: 'map',
+        //     style: 'mapbox://styles/mapbox/streets-v11',
+        //     center: [36.682995, -3.386925],
+        //     zoom: 10
+        // });
         // ----------------------------------------------------------------------------------------
         //navigation control
         const nav = new mapboxgl.NavigationControl()
@@ -143,17 +143,7 @@
                 .addTo(map);
         });
         */
-        /*
-        map.on('load', function () {
-            // Add an image to use as a custom marker
-            map.loadImage(
-                'https://docs.mapbox.com/mapbox-gl-js/assets/custom_marker.png',
-                    function (error, image) {
-                        if (error) throw error;
-                            map.addImage('custom-marker', image);
-                    }) 
-            }); 
-        */
+
     </script>
     <script src = ./location.js></script>
     </body>
