@@ -9,6 +9,10 @@ function getLocation(){
                 center: [position.coords.longitude, position.coords.latitude],
                 zoom: 10
             });
+            var marker = new mapboxgl.Marker()
+                    .setLngLat([position.coords.longitude, position.coords.latitude])
+                    .addTo(map);
+            
             const nav = new mapboxgl.NavigationControl()
             map.addControl(nav, 'bottom-right')
 
@@ -21,11 +25,6 @@ function getLocation(){
               
                 console.log("Lat: ", lat, "Long: ", long, "Timestamp: ", timestamp);
                 
-            
-                var marker = new mapboxgl.Marker()
-                    .setLngLat([long, lat])
-                    .addTo(map);
-            
                 let div = document.getElementById('location-div');
                 if(div.hasChildNodes()){
                     div.innerHTML = '';
