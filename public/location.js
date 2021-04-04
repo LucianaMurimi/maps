@@ -1,10 +1,9 @@
 // 1. LOCATION
-const map;
  
-function getCurrentLocation(){
+function getLocation(){
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(position => {
-            map = new mapboxgl.Map({
+            const map = new mapboxgl.Map({
                 container: 'map',
                 style: 'mapbox://styles/mapbox/streets-v11',
                 center: [position.coords.longitude, position.coords.latitude],
@@ -12,6 +11,8 @@ function getCurrentLocation(){
             });
             const nav = new mapboxgl.NavigationControl()
             map.addControl(nav, 'bottom-right')
+
+            navigator.geolocation.watchPosition(showLocation);
         });
     } else { 
         let err = "Geolocation is not supported by this browser.";
@@ -23,14 +24,6 @@ function animateMarker() {
         .addTo(map);
     
     marker.addTo(map);
-}
-
-function getLocation(){
-    if (navigator.geolocation) {
-        navigator.geolocation.watchPosition(showLocation);
-    } else { 
-        let err = "Geolocation is not supported by this browser.";
-    }
 }
 
 function showLocation(position){
