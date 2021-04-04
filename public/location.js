@@ -26,7 +26,8 @@ function showLocation(position){
   
     console.log("Lat: ", lat, "Long: ", long, "Timestamp: ", timestamp);
     
-    new mapboxgl.Marker()
+
+    var marker = new mapboxgl.Marker()
         .setLngLat([long, lat])
         .addTo(map);
 
