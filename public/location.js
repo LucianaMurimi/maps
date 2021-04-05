@@ -22,6 +22,11 @@ function getLocation(){
                 lat = position.coords.latitude;
                 long = position.coords.longitude;
                 timestamp = position.timestamp;
+
+                marker.remove();
+                var marker = new mapboxgl.Marker()
+                    .setLngLat([long, lat])
+                    .addTo(map);
               
                 console.log("Lat: ", lat, "Long: ", long, "Timestamp: ", timestamp);
 
