@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+
+        <!-- mapbox -->
+        <script src='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js'></script>
+        <link href='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css' rel='stylesheet' />
+
+        <title>Maps</title>
+
+        <style>
+            /* Basic styling */
+            main {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+            #map {
+                height: 70vh;
+                width: 80vw;
+                border: none;
+            }
+            .red-marker {
+                background: #FF0000;
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                cursor: pointer;
+            }
+            .yellow-marker {
+                background: #FFFF00;
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                cursor: pointer;
+            }
+            .green-marker {
+                background: #00FF00;
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                cursor: pointer;
+            }
+            p {
+                font-size: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <main>
+            <div id='map'></div>
+            <div id='location-div'></div>
+        </main>
+
+    <script>
+        mapboxgl.accessToken = 'pk.eyJ1IjoibHVjaWFuYW0iLCJhIjoiY2ttcng3czl5MGM0cTJ5czA5Yjd1d2NudyJ9.X_DK1RLDo38gI-xLbSOw4g';
+        // 1. LOCATION
+         async function getData(){
+            const response = await fetch('/apiData');
+            const data = await response.json(); //DATA from the API
+            console.log(data[0]);
+
+            let arrCoordinates = [];
+            for(let i=0; i<data.length; i++){
+                arrCoordinates.push([data[i].long, data[i].lat])
+            }
+
+            console.log(arrCoordinates[0])
+
+            getLocation();
+            function getLocation(){
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(position => {
+                    const map = new mapboxgl.Map({
+                        container: 'map',
+                        style: 'mapbox://styles/mapbox/streets-v11',
+                        center: [position.coords.longitude, position.coords.latitude],
+                        zoom: 10
+                    });
+                    var marker = new mapboxgl.Marker()
+                            .setLngLat([position.coords.longitude, position.coords.latitude])
+                            .addTo(map);
+                    
+                    const nav = new mapboxgl.NavigationControl()
+                    map.addControl(nav, 'bottom-right');
+
+                    map.on('load', function() {
+                        // Add a data source containing GeoJSON data
+                        map.addSource('sensor-data', {
+                            'type': 'geojson',
+                            'data': {
+                                'type': 'Feature',
+                                'geometry': {
+                                    'type': 'Polygon',
+                                    // passing the coordinates
+                                    'coordinates': [
+                                        arrCoordinates
+                                    ]
+                                    }
+                                }  
+                            });  
+                        // Add a new layer to visualize the polygon.
+                        map.addLayer({
+                            'id': 'sensor-data',
+                            'type': 'fill',
+                            'source': 'sensor-data', // reference the data source
+                            'layout': {},
+                            'paint': {
+                                'fill-color': '#0080ff', // blue color fill
+                                'fill-opacity': 0.5
+                                }
+
+                        });
+                        // Add a black outline around the polygon.
+                        map.addLayer({
+                            'id': 'outline',
+                            'type': 'line',
+                            'source': 'sensor-data',
+                            'layout': {},
+                            'paint': {
+                                'line-color': '#000',
+                                'line-width': 3
+                                }
+                        });    
+                    });
+
+                });
+            } else { 
+                let err = "Geolocation is not supported by this browser.";
+            }
+        }
+               
+        }
+
+       
+        getData();
+        
+        // ============================================================================
+    </script>
+    
+    </body>
+</html>
